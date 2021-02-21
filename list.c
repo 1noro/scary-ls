@@ -22,15 +22,15 @@ void list_files(const char *dirname) {
     pDir = opendir(dirname);
     if (pDir == NULL) {
         printf("Cannot open directory '%s'\n", dirname);
-    }
+    } else {
+        // Process each entry.
+        while ((pDirent = readdir(pDir)) != NULL) {
+            printf("%s/%s\n", dirname, pDirent->d_name);
+        }
 
-    // Process each entry.
-    while ((pDirent = readdir(pDir)) != NULL) {
-        printf("%s/%s\n", dirname, pDirent->d_name);
+        // Close directory and exit.
+        closedir(pDir);
     }
-
-    // Close directory and exit.
-    closedir(pDir);
 }
 
 int main(int argc, char const *argv[]) {
@@ -42,8 +42,7 @@ int main(int argc, char const *argv[]) {
             list_files(argv[i]);
         }
     } else {
-        char current_dir[] = ".";
-        list_files(current_dir);
+        list_files(".");
     }
 
     return 0;
