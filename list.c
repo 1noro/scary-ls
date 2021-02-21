@@ -14,25 +14,23 @@ void print_argv(int argc, char const *argv[]) {
     printf("]\n");
 }
 
-int list_files(const char *dirname) {
+void list_files(const char *dirname) {
     struct dirent *pDirent;
     DIR *pDir;
 
     // Ensure we can open directory.
     pDir = opendir(dirname);
     if (pDir == NULL) {
-        printf ("Cannot open directory '%s'\n", dirname);
-        return 1;
+        printf("Cannot open directory '%s'\n", dirname);
     }
 
     // Process each entry.
     while ((pDirent = readdir(pDir)) != NULL) {
-        printf ("%s/%s\n", dirname, pDirent->d_name);
+        printf("%s/%s\n", dirname, pDirent->d_name);
     }
 
     // Close directory and exit.
     closedir(pDir);
-    return 0;
 }
 
 int main(int argc, char const *argv[]) {
